@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 import subprocess
 
@@ -16,6 +17,8 @@ class TimeLogger():
         year_month = now_dt.strftime('%Y_%m')
         now = now_dt.strftime('%x %X')
         logline = f'{now},{mode}\n'
+        if not os.path.exists('./logs/'):
+            os.makedirs('./logs/')
         with open(f'./logs/{year_month}.log', 'a') as logfile:
             logfile.write(logline)
 
