@@ -54,9 +54,9 @@ class OptionsWindow(tk.Toplevel):
 
     def save_config_and_close(self):
         self.config['timer']['work_time'] = self.work_time.get()
-        self.config['timer']['rest_time'] = self.rest_time.get()
-        self.config['timer']['chill_time'] = self.chill_time.get()
-        self.config['timer']['num_cycle'] = self.num_cycle.get()
+        self.config['timer']['short_rest_time'] = self.rest_time.get()
+        self.config['timer']['long_rest_time'] = self.chill_time.get()
+        self.config['timer']['num_cycles'] = self.num_cycle.get()
         self.config.write_config()
         self.master.config = self.config
         self.master.set_timer()
