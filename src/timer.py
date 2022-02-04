@@ -13,14 +13,9 @@ STOP_SOUND  = './sound/stop.wav'
 
 class PomodoroTimer():
     def __init__(self, config):
-        self._running = False
-        self._timer_thread = None
         self._logger = TimeLogger()
         self._logger.log('NEW SESSION')
-        self._set_timers_from_config(config)
-        self._set_state_sequence()
-        self._state = next(self._sequence_iterator)
-        self._cur_time = self._timer_mapping[WORK]
+        self.reset(config)
 
     def start(self):
         self._running = True
@@ -56,7 +51,10 @@ class PomodoroTimer():
         return self._cur_time
 
     def get_state(self):
-        return self._state
+        try:
+            return self._state
+        except AttributeError:
+            return IDLE
 
     def set_state(self, state):
         self._state = state
@@ -93,8 +91,14 @@ class PomodoroTimer():
         self._sound_thread.start()
 
     def _set_state_sequence(self):
-        self._state_sequence = [WORK, SHORT_REST] * (self._num_cycles - 1)
-        self._state_sequence += [WORK, LONG_REST]
+        state = self.get_state()
+        if state == SHORT_REST:
+            state_sequence = ([WORK, LONG_REST] + [WORK, SHORT_REST] *
+                              (self._num_cycles - 1))
+        else:
+            state_sequence = ([WORK, SHORT_REST] * (self._num_cycles - 1) +
+                              [WORK, LONG_REST])
+        self._state_sequence = state_sequence
         self._sequence_iterator = cycle(self._state_sequence)
 
     def _set_timers_from_config(self, config):
