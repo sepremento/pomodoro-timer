@@ -44,6 +44,16 @@ class PomodoroTimer():
         self.set_state(next_state)
         self._logger.log(next_state)
 
+    def enlarge_short_rest(self):
+        if self.get_state() == SHORT_REST:
+            self.set_state(LONG_REST)
+            self._set_state_sequence()
+
+    def shorten_long_rest(self):
+        if self.get_state() == LONG_REST:
+            self.set_state(SHORT_REST)
+            self._set_state_sequence()
+
     def is_running(self):
         return self._running
 
