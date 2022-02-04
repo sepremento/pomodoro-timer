@@ -1,3 +1,4 @@
+from pathlib import Path
 from datetime import datetime
 from itertools import cycle
 from time import sleep
@@ -8,8 +9,9 @@ from src.constants import *
 from src.logger import TimeLogger
 
 
-START_SOUND = './sound/start.wav'
-STOP_SOUND  = './sound/stop.wav'
+PATH = Path(__file__).absolute().parent.parent
+START_SOUND = PATH/'sound/start.wav'
+STOP_SOUND  = PATH/'sound/stop.wav'
 
 class PomodoroTimer():
     def __init__(self, config):
