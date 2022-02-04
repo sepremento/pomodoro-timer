@@ -1,6 +1,7 @@
 import threading
 import tkinter as tk
 from datetime import datetime, timedelta
+from pathlib import Path
 from src.widgets import Digit, Semicolon, ToolTip
 from src.options_window import OptionsWindow
 from src.splash_screen import SplashScreen
@@ -12,6 +13,7 @@ from playsound import playsound
 class TimeWindow(tk.Frame):
     def __init__(self, master=None, config=None):
         super().__init__(master)
+        self.path = Path(__file__).absolute().parent.parent
         self.master = master
         self.config = config
         self.timer = PomodoroTimer(self.config)
@@ -27,14 +29,14 @@ class TimeWindow(tk.Frame):
         self.show_time(cur_time)
 
     def create_widgets(self):
-        startImg = tk.PhotoImage(file='./img/start.png').subsample(2, 2)
-        stopImg = tk.PhotoImage(file='./img/stop.png').subsample(2, 2)
-        pauseImg = tk.PhotoImage(file='./img/pause.png').subsample(2, 2)
-        configImg = tk.PhotoImage(file='./img/gear.png').subsample(2, 2)
-        statsImg = tk.PhotoImage(file='./img/stats.png').subsample(2, 2)
-        exitImg = tk.PhotoImage(file='./img/exit.png').subsample(2, 2)
-        enlargeImg = tk.PhotoImage(file='./img/forward.png').subsample(2, 2)
-        shortenImg = tk.PhotoImage(file='./img/backward.png').subsample(2, 2)
+        startImg = tk.PhotoImage(file=self.path/'img/start.png').subsample(2, 2)
+        stopImg = tk.PhotoImage(file=self.path/'img/stop.png').subsample(2, 2)
+        pauseImg = tk.PhotoImage(file=self.path/'img/pause.png').subsample(2, 2)
+        configImg = tk.PhotoImage(file=self.path/'img/gear.png').subsample(2, 2)
+        statsImg = tk.PhotoImage(file=self.path/'img/stats.png').subsample(2, 2)
+        exitImg = tk.PhotoImage(file=self.path/'img/exit.png').subsample(2, 2)
+        enlargeImg = tk.PhotoImage(file=self.path/'img/forward.png').subsample(2, 2)
+        shortenImg = tk.PhotoImage(file=self.path/'img/backward.png').subsample(2, 2)
 
         self.configBtn = tk.Button(self.master, image=configImg, width=50,
                                    borderwidth=0,
