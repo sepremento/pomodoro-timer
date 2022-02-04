@@ -1,13 +1,12 @@
 import threading
 import tkinter as tk
 from datetime import datetime, timedelta
-from src.widgets import Digit, Semicolon
+from src.widgets import Digit, Semicolon, ToolTip
 from src.options_window import OptionsWindow
 from src.splash_screen import SplashScreen
 from src.timer import PomodoroTimer
 from src.constants import *
 from playsound import playsound
-
 
 
 class TimeWindow(tk.Frame):
@@ -34,6 +33,8 @@ class TimeWindow(tk.Frame):
         configImg = tk.PhotoImage(file='./img/gear.png').subsample(2, 2)
         statsImg = tk.PhotoImage(file='./img/stats.png').subsample(2, 2)
         exitImg = tk.PhotoImage(file='./img/exit.png').subsample(2, 2)
+        enlargeImg = tk.PhotoImage(file='./img/forward.png').subsample(2, 2)
+        shortenImg = tk.PhotoImage(file='./img/backward.png').subsample(2, 2)
 
         self.configBtn = tk.Button(self.master, image=configImg, width=50,
                                    borderwidth=0,
@@ -77,7 +78,22 @@ class TimeWindow(tk.Frame):
         self.pauseBtn.grid(row=2, column=1)
         self.stopBtn.grid(row=2, column=2)
 
-    def close(self):
+        self.enlargeBtn = tk.Button(self.master, image=enlargeImg, width=50,
+                                    borderwidth=0,
+                                    command=self.timer.enlarge_short_rest)
+        self.enlargeBtn.image = enlargeImg
+        self.shortenBtn = tk.Button(self.master, image=shortenImg, width=50,
+                                    borderwidth=0,
+                                    command=self.timer.shorten_long_rest)
+        self.shortenBtn.image = shortenImg
+
+        self.shortenBtn.grid(row=3, column=0)
+        self.enlargeBtn.grid(row=3, column=1)
+
+        self.shortenTip = ToolTip(self.shortenBtn, text='Увеличить короткий перерыв до длинного')
+        self.enlargeTip = ToolTip(self.enlargeBtn, text='Уменьшить длинный перерыв до короткого')
+
+    def close(self, event=None):
         self.timer.stop()
         self.master.destroy()
 
