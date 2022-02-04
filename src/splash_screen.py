@@ -22,9 +22,9 @@ class SplashScreen(tk.Toplevel):
 
     def close_on_any_action(self, event):
         if event.char == "+":
-            self.timer.set_state(LONG_REST)
+            self.timer.enlarge_short_rest()
         elif event.char == "-":
-            self.timer.set_state(SHORT_REST)
+            self.timer.shorten_long_rest()
         else:
             self.timer.start()
             self.destroy()
