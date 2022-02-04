@@ -9,6 +9,7 @@ class OptionsWindow(tk.Toplevel):
         super().__init__(master)
         self.master = master
         self.config = config
+        self.geometry('-50+100')
         self.resizable(False, False)
         self.create_widgets(self.config)
 

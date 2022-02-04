@@ -6,7 +6,7 @@ from src.config import TimerConfig
 
 if __name__ == '__main__':
     root = tk.Tk()
-    root.geometry('163x120')
+    root.geometry('163x155-100+100')
     root.resizable(False, False)
 
     tconf = TimerConfig()
